@@ -10,9 +10,24 @@ app.set('view engine', 'handlebars')
 app.use(express.static(__dirname + '/public'));
 const port = process.env.port || 3000
 
+
+const products = [
+    {
+        name: 'Product 1', image: '/img/car1.png'
+    },
+    {
+        name: 'Product 2', image: '/img/car2.png'
+    },
+    {
+        name: 'Product 3', image: '/img/car3.png'
+    },
+]
 app.get('/', (req, res) => res.render('home'))
 app.get('/about', (req, res) => res.render('about'))
-app.get('/listPro', (req, res) => res.render('listPro'))
+app.get('/listPro', (req, res) =>  {
+    res.render('listPro', {products})
+})
+ 
 
 
 
@@ -30,6 +45,7 @@ app.use((err, req, res, next)=> {
     res.send('500 - Server Error')
 })
 app.listen(port, () => console.log(
-    'express started on http://localhost:${port}; ' +
+    `express started on http://localhost:${port}; ` +
     'press Ctrl-C to terminate'
 ))
+//note

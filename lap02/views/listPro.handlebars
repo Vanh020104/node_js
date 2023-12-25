@@ -21,19 +21,12 @@
   <main>
   <h2 style="margin: 30px 0;text-align: center;">List products</h2>
   <div class="products-container">
-    <div class="product">
-      <img src="/img/car1.png" alt="">
-      <span>Tên sản phẩm 1</span>
+    {{#each  products}}
+    <div>
+      <h2>{{name}}</h2>
+      <img src="{{image}}" alt="{{name}}">
     </div>
-    <div class="product">
-      <img src="/img/car2.png" alt="">
-      <span>Tên sản phẩm 2</span>
-    </div>
-    <div class="product">
-      <img src="/img/car3.png" alt="">
-      <span>Tên sản phẩm 3</span>
-    </div>
-    <!-- Thêm các sản phẩm khác nếu cần -->
+    {{/each}}
   </div>
 </main>
 
