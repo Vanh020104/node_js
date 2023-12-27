@@ -17,16 +17,27 @@
         </div>
         <div class="card-body">
           <form>
+            <div>
+    <label>Your Name:
+        <input name="name" style="width: 100%;">
+    </label>
+   </div>
+   <br />
+   <div>
+    <label>Your Email:
+        <input name="email" type="email" style="width: 100%;"/>
+    </label>
+   </div>
             <div class="form-group">
               <label>Chọn mức độ hài lòng:</label>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="feedback" id="satisfied" value="satisfied">
+                <input class="form-check-input" type="checkbox" name="good" id="satisfied" value="satisfied">
                 <label class="form-check-label" for="satisfied">
                   Hài Lòng
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="feedback" id="unsatisfied" value="unsatisfied">
+                <input class="form-check-input" type="checkbox" name="not_good" id="unsatisfied" value="unsatisfied">
                 <label class="form-check-label" for="unsatisfied">
                   Không Hài Lòng
                 </label>
@@ -44,4 +55,37 @@
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+<script>
+    const api = {
+        post(path, data){
+            const body = typeof data == 'object'? JSON.stringify(data):data
+            const headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+            return fetch(path, {method: "Post", body, headers})
+            .then(res => {
+                if(res.status < 200 || res.status >= 400)
+                return Promise.reject(new Error('API error: ${res.status}'))
+                return res.json()
+            })
+        }
+    }
+        document.querySelector('form').addEventListener('submit', evt => {
+            const formdata = new FormData(evt.target)
+            if(!formdata.get('good')) return
+
+            evt.preventDefault()
+            const data = {
+                name:formdata.get('name'),
+                email: formdata.get('email'),
+                simulateError: formdata.get('not_good'),
+
+            }
+            api.post('/process-contact', data)
+            .then(() => window.location = '/register-thanks')
+            .catch(() => window.location = '/sorry')
+        })
+    
+</script>
 </html>
