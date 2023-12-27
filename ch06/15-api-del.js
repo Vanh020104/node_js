@@ -12,10 +12,11 @@ const tours = [
 
 app.get('/api/tours', (req,res) => res.json(tours))
 
-app.delete('api/tour/:id', (req, res) => {
+app.delete('/api/tour/:id', (req, res) => {
     const idx = tours.findIndex(tour => tour.id === parseInt(req.params.id))
     if(idx <0 ) return res.json({ error: 'No such tourn exists.'})
-    tours.json({ success: true})
+    tours.splice(idx,1)
+res.json({success: true})
 })
 
 app.use('*', (req, res) => res.send (
