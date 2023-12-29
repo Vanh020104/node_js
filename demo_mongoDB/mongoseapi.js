@@ -41,7 +41,7 @@ app.get('api/blogs/:id', async (req, res)=> {
     try {
       const blog = await Blog.findById(req.params.id);
       if(!product){
-        return res.status(404).json({error: 'Cmt khong tontai'})
+        return res.status(404).json({error: 'Not Found'})
       }
       res.json(product);
     } catch(error){
@@ -70,7 +70,7 @@ app.put('/api/blogs/:id', async (req, res) => {
     { new: true }
     );
     if (!updatedBlog) {
-        return res.status(404).json({ error: 'Blog not found' });
+        return res.status(404).json({ error: 'Not Found' });
     }
     res.json(updatedBlog);
   } catch (error) {
@@ -83,7 +83,7 @@ app.delete('/api/blogs/:id', async (req, res) => {
   try {
     const deleteBlog = await Blog.findByIdAndDelete(req.params.id);
     if (!deleteBlog) {
-        return res.status(404).json({ error: 'Blog not found' });
+        return res.status(404).json({ error: 'Not Found' });
      
     }
 
